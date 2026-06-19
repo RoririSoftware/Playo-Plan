@@ -145,7 +145,8 @@
             }
 
             .section {
-                padding: 64px 0;
+                padding-top: 64px;
+                padding-bottom: 64px;
             }
             .section-label {
                 display: inline-block;
@@ -442,21 +443,142 @@
             @media (max-width: 900px) {
                 .plans-grid {
                     grid-template-columns: 1fr;
-                    max-width: 420px;
+                    max-width: 480px;
                     margin: 0 auto 32px;
                 }
                 .timeline-grid {
                     grid-template-columns: 1fr;
                 }
+                .hero {
+                    padding: 56px 0 44px;
+                }
                 .hero h1 {
-                    font-size: 32px;
+                    font-size: 36px;
+                }
+                .hero p {
+                    font-size: 16px;
                 }
                 .hero-stats {
-                    gap: 24px;
+                    gap: 28px;
                 }
                 .tab-btn {
-                    padding: 12px 16px;
+                    padding: 14px 20px;
                     font-size: 13px;
+                }
+                .section {
+                    padding-top: 48px;
+                    padding-bottom: 48px;
+                }
+                .section-title {
+                    font-size: 26px;
+                }
+                .section-sub {
+                    font-size: 15px;
+                }
+                .summary-grid {
+                    grid-template-columns: 1fr !important;
+                    max-width: 480px;
+                    margin: 0 auto 24px !important;
+                }
+            }
+
+            @media (max-width: 640px) {
+                .container {
+                    padding: 0 16px;
+                }
+                .hero {
+                    padding: 40px 0 32px;
+                }
+                .hero h1 {
+                    font-size: 28px;
+                    letter-spacing: -1px;
+                }
+                .hero p {
+                    font-size: 15px;
+                }
+                .hero-badge {
+                    font-size: 12px;
+                }
+                .hero-stats {
+                    gap: 20px;
+                }
+                .hero-stat .num {
+                    font-size: 22px;
+                }
+                .hero-stat .label {
+                    font-size: 12px;
+                }
+                .section {
+                    padding-top: 36px;
+                    padding-bottom: 36px;
+                }
+                .section-title {
+                    font-size: 22px;
+                }
+                .section-sub {
+                    font-size: 14px;
+                    margin-bottom: 28px;
+                }
+                .section-label {
+                    font-size: 11px;
+                }
+                .tab-btn {
+                    padding: 12px 14px;
+                    font-size: 12px;
+                }
+                .plans-grid {
+                    max-width: 100%;
+                    gap: 16px;
+                    margin-bottom: 32px;
+                }
+                .plan-header {
+                    padding: 24px 20px 20px;
+                }
+                .plan-price {
+                    padding: 20px;
+                }
+                .plan-price .amount {
+                    font-size: 30px;
+                }
+                .plan-body {
+                    padding: 20px;
+                }
+                .feature-table {
+                    min-width: 600px;
+                }
+                .feature-table th,
+                .feature-table td {
+                    padding: 10px 12px;
+                    font-size: 13px;
+                }
+                .timeline-card {
+                    padding: 20px;
+                }
+                .view-toggle {
+                    width: 100%;
+                }
+                .view-toggle button {
+                    flex: 1;
+                    text-align: center;
+                }
+                .feature-note {
+                    padding: 12px 14px;
+                    font-size: 13px;
+                }
+            }
+
+            @media (max-width: 400px) {
+                .hero h1 {
+                    font-size: 24px;
+                }
+                .hero-stats {
+                    gap: 16px;
+                }
+                .hero-stat .num {
+                    font-size: 20px;
+                }
+                .plan-price .amount {
+                    font-size: 26px;
                 }
             }
 
@@ -547,6 +669,7 @@
                     reservations. It consists of three integrated applications:
                 </p>
                 <div
+                    class="summary-grid"
                     style="
                         display: grid;
                         grid-template-columns: repeat(3, 1fr);
