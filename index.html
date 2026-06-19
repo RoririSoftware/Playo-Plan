@@ -1,0 +1,2523 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Playo - Sports Booking Platform</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&display=swap");
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                font-family:
+                    "Geist",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                background: #f8fafc;
+                color: #0f172a;
+                line-height: 1.5;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+
+            /* Hero */
+            .hero {
+                background: linear-gradient(
+                    135deg,
+                    #0f172a 0%,
+                    #1e293b 50%,
+                    #0f172a 100%
+                );
+                color: #fff;
+                padding: 80px 0 60px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                opacity: 0.5;
+            }
+            .hero-badge {
+                display: inline-block;
+                background: rgba(34, 197, 94, 0.15);
+                color: #22c55e;
+                font-size: 13px;
+                font-weight: 600;
+                padding: 6px 16px;
+                border-radius: 100px;
+                letter-spacing: 0.3px;
+                margin-bottom: 24px;
+                border: 1px solid rgba(34, 197, 94, 0.2);
+            }
+            .hero h1 {
+                font-size: 52px;
+                font-weight: 900;
+                letter-spacing: -1.5px;
+                margin-bottom: 16px;
+            }
+            .hero h1 span {
+                color: #22c55e;
+            }
+            .hero p {
+                font-size: 18px;
+                color: #94a3b8;
+                max-width: 600px;
+                margin: 0 auto 32px;
+                line-height: 1.7;
+            }
+            .hero-stats {
+                display: flex;
+                justify-content: center;
+                gap: 48px;
+                flex-wrap: wrap;
+            }
+            .hero-stat {
+                text-align: center;
+            }
+            .hero-stat .num {
+                font-size: 28px;
+                font-weight: 800;
+                color: #22c55e;
+            }
+            .hero-stat .label {
+                font-size: 14px;
+                color: #64748b;
+                margin-top: 4px;
+            }
+
+            /* Tabs */
+            .tabs-wrap {
+                background: #fff;
+                border-bottom: 1px solid #e2e8f0;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            .tabs {
+                display: flex;
+                gap: 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .tab-btn {
+                padding: 16px 28px;
+                font-size: 14px;
+                font-weight: 600;
+                color: #64748b;
+                background: none;
+                border: none;
+                cursor: pointer;
+                border-bottom: 2px solid transparent;
+                transition: all 0.15s;
+                white-space: nowrap;
+                font-family: inherit;
+            }
+            .tab-btn:hover {
+                color: #0f172a;
+            }
+            .tab-btn.active {
+                color: #22c55e;
+                border-bottom-color: #22c55e;
+            }
+            .tab-content {
+                display: none;
+                padding: 48 0;
+            }
+            .tab-content.active {
+                display: block;
+            }
+
+            .section {
+                padding: 64px 0;
+            }
+            .section-label {
+                display: inline-block;
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #22c55e;
+                margin-bottom: 8px;
+            }
+            .section-title {
+                font-size: 32px;
+                font-weight: 800;
+                letter-spacing: -0.5px;
+                margin-bottom: 12px;
+            }
+            .section-sub {
+                color: #64748b;
+                font-size: 16px;
+                max-width: 640px;
+                margin-bottom: 40px;
+                line-height: 1.7;
+            }
+
+            /* Plan cards */
+            .plans-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+                margin-bottom: 48px;
+            }
+            .plan-card {
+                background: #fff;
+                border-radius: 16px;
+                border: 1px solid #e2e8f0;
+                overflow: hidden;
+                transition: all 0.2s;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+            }
+            .plan-card:hover {
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+                transform: translateY(-2px);
+            }
+            .plan-card.popular {
+                border-color: #22c55e;
+                box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+            }
+            .plan-card .popular-badge {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                background: #22c55e;
+                color: #fff;
+                font-size: 11px;
+                font-weight: 700;
+                padding: 4px 12px;
+                border-radius: 100px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .plan-header {
+                padding: 32px 28px 24px;
+                border-bottom: 1px solid #f1f5f9;
+            }
+            .plan-name {
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+            .plan-desc {
+                font-size: 14px;
+                color: #64748b;
+            }
+            .plan-price {
+                padding: 24px 28px;
+                border-bottom: 1px solid #f1f5f9;
+            }
+            .plan-price .amount {
+                font-size: 36px;
+                font-weight: 900;
+                letter-spacing: -1px;
+            }
+            .plan-price .amount small {
+                font-size: 16px;
+                font-weight: 600;
+                color: #64748b;
+            }
+            .plan-price .meta {
+                font-size: 13px;
+                color: #64748b;
+                margin-top: 4px;
+            }
+            .plan-price .meta span {
+                font-weight: 600;
+                color: #0f172a;
+            }
+            .plan-body {
+                padding: 24px 28px 32px;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .plan-cta {
+                display: block;
+                text-align: center;
+                padding: 14px;
+                border-radius: 10px;
+                font-weight: 700;
+                font-size: 15px;
+                text-decoration: none;
+                transition: all 0.15s;
+                margin-top: auto;
+                font-family: inherit;
+                cursor: pointer;
+                border: none;
+            }
+            .plan-cta.primary {
+                background: #0f172a;
+                color: #fff;
+            }
+            .plan-cta.primary:hover {
+                background: #1e293b;
+            }
+            .plan-cta.popular-cta {
+                background: #22c55e;
+                color: #fff;
+            }
+            .plan-cta.popular-cta:hover {
+                background: #16a34a;
+            }
+            .plan-cta.outline {
+                background: transparent;
+                color: #0f172a;
+                border: 2px solid #e2e8f0;
+            }
+            .plan-cta.outline:hover {
+                border-color: #0f172a;
+            }
+
+            /* Feature table */
+            .feature-table-wrap {
+                overflow-x: auto;
+            }
+            .feature-table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 700px;
+            }
+            .feature-table th {
+                text-align: left;
+                padding: 12px 16px;
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.8px;
+                color: #64748b;
+                border-bottom: 2px solid #e2e8f0;
+            }
+            .feature-table th:first-child {
+                width: 36%;
+            }
+            .feature-table th:not(:first-child) {
+                text-align: center;
+                width: 21.33%;
+            }
+            .feature-table td {
+                padding: 14px 16px;
+                font-size: 14px;
+                border-bottom: 1px solid #f1f5f9;
+                vertical-align: middle;
+            }
+            .feature-table td:first-child {
+                font-weight: 500;
+                color: #0f172a;
+            }
+            .feature-table td:not(:first-child) {
+                text-align: center;
+            }
+            .feature-table tr.feature-group td {
+                font-weight: 700;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #94a3b8;
+                background: #f8fafc;
+                padding: 10px 16px;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .feature-table tr.feature-group td:not(:first-child) {
+                text-align: center;
+            }
+            .feature-table .plus {
+                color: #22c55e;
+                font-weight: 700;
+                font-size: 18px;
+            }
+            .feature-table .minus {
+                color: #ef4444;
+                font-weight: 700;
+                font-size: 18px;
+            }
+            .feature-table .partial {
+                color: #f59e0b;
+                font-weight: 700;
+                font-size: 14px;
+            }
+            .feature-table tr:hover td {
+                background: #fafcff;
+            }
+
+            .feature-note {
+                margin-top: 20px;
+                padding: 16px 20px;
+                background: #fffbeb;
+                border-radius: 10px;
+                border: 1px solid #fde68a;
+                font-size: 14px;
+                color: #92400e;
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .feature-note strong {
+                color: #78350f;
+            }
+
+            /* Timeline section */
+            .timeline-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+            .timeline-card {
+                background: #fff;
+                border-radius: 14px;
+                border: 1px solid #e2e8f0;
+                padding: 28px;
+                position: relative;
+            }
+            .timeline-card .week {
+                font-size: 13px;
+                font-weight: 700;
+                color: #22c55e;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 4px;
+            }
+            .timeline-card h4 {
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+            .timeline-card .hours {
+                font-size: 13px;
+                color: #64748b;
+                margin-bottom: 12px;
+            }
+            .timeline-card ul {
+                list-style: none;
+            }
+            .timeline-card ul li {
+                font-size: 14px;
+                color: #334155;
+                padding: 6px 0;
+                padding-left: 20px;
+                position: relative;
+                line-height: 1.5;
+            }
+            .timeline-card ul li::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 14px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #22c55e;
+            }
+
+            /* Footer */
+            .footer {
+                background: #0f172a;
+                color: #64748b;
+                text-align: center;
+                padding: 40px 0;
+                font-size: 14px;
+            }
+            .footer strong {
+                color: #e2e8f0;
+            }
+
+            @media (max-width: 900px) {
+                .plans-grid {
+                    grid-template-columns: 1fr;
+                    max-width: 420px;
+                    margin: 0 auto 32px;
+                }
+                .timeline-grid {
+                    grid-template-columns: 1fr;
+                }
+                .hero h1 {
+                    font-size: 32px;
+                }
+                .hero-stats {
+                    gap: 24px;
+                }
+                .tab-btn {
+                    padding: 12px 16px;
+                    font-size: 13px;
+                }
+            }
+
+            /* Toggle */
+            .view-toggle {
+                display: flex;
+                gap: 8px;
+                margin-bottom: 32px;
+                background: #f1f5f9;
+                padding: 4px;
+                border-radius: 10px;
+                width: fit-content;
+            }
+            .view-toggle button {
+                padding: 8px 20px;
+                border: none;
+                background: transparent;
+                font-size: 13px;
+                font-weight: 600;
+                color: #64748b;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.15s;
+                font-family: inherit;
+            }
+            .view-toggle button.active {
+                background: #fff;
+                color: #0f172a;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-badge">Playo - Ground Booking Platform</div>
+                <h1><span>Playo</span> App - Platform Plan</h1>
+                <p>
+                    Three ready-to-ship plans for the Playo sports booking
+                    platform - from a lean MVP to a full-featured marketplace
+                    with maps, payments, QR tickets, and admin controls.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="num">4–6</div>
+                        <div class="label">Weeks to Launch</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">₹1.6L–2.4L</div>
+                        <div class="label">Total Investment</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">3</div>
+                        <div class="label">Platforms (App + Web)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Playo App Summary -->
+        <section style="background: #fff; border-bottom: 1px solid #e2e8f0">
+            <div class="container" style="padding: 40px 24px">
+                <div class="section-label" style="margin-bottom: 8px">
+                    Playo App Summary
+                </div>
+                <h2
+                    style="
+                        font-size: 28px;
+                        font-weight: 800;
+                        letter-spacing: -0.5px;
+                        margin-bottom: 12px;
+                    "
+                >
+                    What is Playo?
+                </h2>
+                <p
+                    style="
+                        color: #475569;
+                        font-size: 15px;
+                        line-height: 1.7;
+                        max-width: 800px;
+                        margin-bottom: 24px;
+                    "
+                >
+                    Playo is a sports ground booking platform that connects
+                    players with available sports grounds for seamless time-slot
+                    reservations. It consists of three integrated applications:
+                </p>
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 16px;
+                        margin-bottom: 24px;
+                    "
+                >
+                    <div
+                        style="
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 20px;
+                        "
+                    >
+                        <div style="font-size: 24px; margin-bottom: 6px">
+                            &#127937;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 15px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Player App
+                        </h4>
+                        <p
+                            style="
+                                font-size: 13px;
+                                color: #64748b;
+                                line-height: 1.6;
+                            "
+                        >
+                            Mobile app for end users to browse grounds, check
+                            real-time availability, book slots, pay online, and
+                            check in via QR code.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 20px;
+                        "
+                    >
+                        <div style="font-size: 24px; margin-bottom: 6px">
+                            &#127970;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 15px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Owner App
+                        </h4>
+                        <p
+                            style="
+                                font-size: 13px;
+                                color: #64748b;
+                                line-height: 1.6;
+                            "
+                        >
+                            Mobile dashboard for ground owners to manage
+                            listings, set pricing, view bookings, and track
+                            earnings.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #f8fafc;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 20px;
+                        "
+                    >
+                        <div style="font-size: 24px; margin-bottom: 6px">
+                            &#127760;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 15px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Admin Panel
+                        </h4>
+                        <p
+                            style="
+                                font-size: 13px;
+                                color: #64748b;
+                                line-height: 1.6;
+                            "
+                        >
+                            Web control center for platform oversight - revenue
+                            monitoring, user management, vendor verification,
+                            catalog approval, commission config, and analytics.
+                        </p>
+                    </div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px">
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; Location-based discovery</span
+                    >
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; Real-time slot booking</span
+                    >
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; In-app payments (UPI/Cards)</span
+                    >
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; QR code check-in</span
+                    >
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; Multi-role access control</span
+                    >
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; Push notifications</span
+                    >
+                    <span
+                        style="
+                            font-size: 13px;
+                            background: #f0fdf4;
+                            color: #15803d;
+                            padding: 6px 14px;
+                            border-radius: 100px;
+                            font-weight: 500;
+                        "
+                        >&#10003; Reviews & ratings</span
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- Sticky tabs -->
+        <div class="tabs-wrap">
+            <div class="container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="plans">
+                        Pricing & Features
+                    </button>
+                    <button class="tab-btn" data-tab="compare">
+                        Full Comparison
+                    </button>
+                    <button class="tab-btn" data-tab="timeline">
+                        Delivery Timeline
+                    </button>
+                    <button class="tab-btn" data-tab="tech">Tech Stack</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Plans -->
+        <div class="tab-content active" id="tab-plans">
+            <div class="container section">
+                <div class="section-label">Choose Your Plan</div>
+                <h2 class="section-title">Three tiers. One platform.</h2>
+                <p class="section-sub">
+                    Every plan builds the Playo app - a Flutter mobile app, Bun
+                    + Fastify backend, PostgreSQL database, and JWT auth.
+                    Upgrade tiers unlock more screens, deeper features, and
+                    operator dashboards.
+                </p>
+
+                <div class="plans-grid">
+                    <!-- Starter -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <div class="plan-name">Starter</div>
+                            <div class="plan-desc">
+                                Lean MVP - get to market fast
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <div class="amount">
+                                ₹1,60,000 <small>total</small>
+                            </div>
+                            <div class="meta">
+                                <span>160 hours</span> &middot;
+                                <span>4 weeks</span>
+                            </div>
+                        </div>
+                        <div class="plan-body">
+                            <div style="margin-bottom: 20px">
+                                <div
+                                    style="
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        color: #64748b;
+                                        margin-bottom: 8px;
+                                    "
+                                >
+                                    INCLUDES
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        gap: 6px;
+                                        margin-bottom: 16px;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >1 Onboarding Slide</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >OTP Auth</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >3-Tab Nav</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Basic Search</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Razorpay (UPI)</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Upcoming Bookings</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Owner Dashboard</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Admin Panel (Revenue + Users)</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Push Notifications (FCM)</span
+                                    >
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        color: #ef4444;
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    NOT INCLUDED
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        gap: 6px;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Map View</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Filter Sheet</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Image Carousel</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Calendar Strip</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No QR Tickets</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Full Admin Panel</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Cancellation</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Reviews</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Promo Codes</span
+                                    >
+                                </div>
+                            </div>
+                            <button class="plan-cta outline">
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Pro -->
+                    <div class="plan-card popular">
+                        <div class="popular-badge">Popular</div>
+                        <div class="plan-header">
+                            <div class="plan-name">Pro</div>
+                            <div class="plan-desc">
+                                Full player app + owner tools
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <div class="amount">
+                                ₹2,00,000 <small>total</small>
+                            </div>
+                            <div class="meta">
+                                <span>200 hours</span> &middot;
+                                <span>5 weeks</span>
+                            </div>
+                        </div>
+                        <div class="plan-body">
+                            <div style="margin-bottom: 20px">
+                                <div
+                                    style="
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        color: #64748b;
+                                        margin-bottom: 8px;
+                                    "
+                                >
+                                    INCLUDES
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        gap: 6px;
+                                        margin-bottom: 16px;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >2 Onboarding Slides</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >OTP Auth</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >3-Tab Nav</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Search + Filters</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Image Carousel</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Calendar Strip</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Color-coded Slots</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Price Breakdown</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Razorpay (UPI)</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Upcoming/Past Bookings</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Edit Profile</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Owner Dashboard</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Admin Web Panel</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Multi-role Access</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Push Notifications (FCM)</span
+                                    >
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        color: #ef4444;
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    NOT INCLUDED
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        gap: 6px;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No GPS Auto-Detect</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Map View</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Promo Codes</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No QR Tickets</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Cancellation Policy</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Reviews/Ratings</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Saved Grounds</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #fef2f2;
+                                            color: #dc2626;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >No Redis Caching</span
+                                    >
+                                </div>
+                            </div>
+                            <button class="plan-cta popular-cta">
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <div class="plan-name">Enterprise</div>
+                            <div class="plan-desc">
+                                Everything - maps, QR, reviews, full admin
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <div class="amount">
+                                ₹2,40,000 <small>total</small>
+                            </div>
+                            <div class="meta">
+                                <span>240 hours</span> &middot;
+                                <span>6 weeks</span>
+                            </div>
+                        </div>
+                        <div class="plan-body">
+                            <div style="margin-bottom: 20px">
+                                <div
+                                    style="
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        color: #64748b;
+                                        margin-bottom: 8px;
+                                    "
+                                >
+                                    INCLUDES (everything in Pro, plus)
+                                </div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        gap: 6px;
+                                        margin-bottom: 16px;
+                                    "
+                                >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >3 Onboarding Slides</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Profile Setup</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >4-Tab Nav</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >GPS Auto-Detect</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Map View</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Full Filters</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Carousel Banners</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Court Variant Tabs</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Dynamic Pricing</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Promo Codes</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >QR Tickets</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Cancellation Policy</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Reviews + Images</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Push Notifications</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Saved Grounds</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Payment Methods</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Full Razorpay (All)</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >S3/MinIO Storage</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Redis Caching</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Concurrency Audits</span
+                                    >
+                                    <span
+                                        style="
+                                            font-size: 12px;
+                                            background: #f0fdf4;
+                                            color: #15803d;
+                                            padding: 4px 10px;
+                                            border-radius: 100px;
+                                            font-weight: 500;
+                                        "
+                                        >Webhook Recovery</span
+                                    >
+                                </div>
+                                <div
+                                    style="
+                                        font-size: 13px;
+                                        font-weight: 600;
+                                        color: #64748b;
+                                        margin-bottom: 6px;
+                                    "
+                                >
+                                    EVERYTHING INCLUDED
+                                </div>
+                            </div>
+                            <button class="plan-cta primary">
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-note">
+                    <span style="font-size: 20px">&#9432;</span>
+                    <div>
+                        <strong
+                            >All three plans share the same Playo tech
+                            foundation:</strong
+                        >
+                        Bun + Fastify backend, PostgreSQL 16 via Prisma ORM,
+                        Flutter mobile app (Android + iOS), and JWT-based auth
+                        with SMS OTP. The difference is screen count, feature
+                        depth, and operator tooling.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Full Comparison -->
+        <div class="tab-content" id="tab-compare">
+            <div class="container section">
+                <div class="section-label">Feature Comparison</div>
+                <h2 class="section-title">Every feature, every plan</h2>
+                <p class="section-sub">
+                    Green checkmarks mean the feature is included in Playo. Red
+                    crosses mean it is not part of that plan. Half-filled
+                    indicates a limited version.
+                </p>
+
+                <div class="view-toggle">
+                    <button class="active" data-view="all">All Features</button>
+                    <button data-view="diff">Show Differences Only</button>
+                </div>
+
+                <div class="feature-table-wrap">
+                    <table class="feature-table" id="ftable">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Starter</th>
+                                <th>Pro</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ftbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Timeline -->
+        <div class="tab-content" id="tab-timeline">
+            <div class="container section">
+                <div class="section-label">Delivery Plan</div>
+                <h2 class="section-title">How we build your platform</h2>
+                <p class="section-sub">
+                    Each Playo plan follows a structured weekly cadence. Here's
+                    how the weeks break down across the three tiers.
+                </p>
+
+                <div class="view-toggle" style="margin-bottom: 32px">
+                    <button class="active" data-timeline="starter">
+                        Starter (4 wk)
+                    </button>
+                    <button data-timeline="pro">Pro (5 wk)</button>
+                    <button data-timeline="enterprise">
+                        Enterprise (6 wk)
+                    </button>
+                </div>
+
+                <div id="timeline-container"></div>
+            </div>
+        </div>
+
+        <!-- Tab: Tech -->
+        <div class="tab-content" id="tab-tech">
+            <div class="container section">
+                <div class="section-label">Technology</div>
+                <h2 class="section-title">The stack behind every plan</h2>
+                <p class="section-sub">
+                    All three Playo tiers share this foundation. Higher tiers
+                    add optional components like Redis, S3/MinIO, and maps SDKs.
+                </p>
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: repeat(
+                            auto-fill,
+                            minmax(260px, 1fr)
+                        );
+                        gap: 20px;
+                    "
+                >
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#9881;&#65039;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Backend
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            Bun runtime + Fastify framework (TypeScript). REST
+                            API architecture with JWT authentication and
+                            role-based middleware.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#128451;&#65039;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Database
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            PostgreSQL 16 with Prisma ORM. Migrations, type-safe
+                            queries, and relation mapping for users, grounds,
+                            bookings, and payments.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#128241;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Mobile App
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            Flutter (Dart) for Android & iOS from a single
+                            codebase. Riverpod for state management. Razorpay
+                            SDK for in-app payments.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#127760;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Admin Web (Pro+)
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            React / Next.js responsive dashboard for vendor
+                            verification, catalog approval, commission config,
+                            and platform analytics.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#128179;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Payments
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            Razorpay SDK integration. Starter: UPI QR only. Pro:
+                            UPI via Razorpay. Enterprise: UPI + Cards + Net
+                            Banking.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#128752;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Infrastructure
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            Docker containerized backend. Cloud deployment
+                            (AWS/GCP). Enterprise adds S3/MinIO asset storage
+                            and Redis caching.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#128276;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Notifications
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            Firebase Cloud Messaging (FCM) for push
+                            notifications. Enterprise only. Starter and Pro rely
+                            on in-app status updates.
+                        </p>
+                    </div>
+                    <div
+                        style="
+                            background: #fff;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 12px;
+                            padding: 24px;
+                        "
+                    >
+                        <div style="font-size: 28px; margin-bottom: 8px">
+                            &#128506;
+                        </div>
+                        <h4
+                            style="
+                                font-weight: 700;
+                                font-size: 16px;
+                                margin-bottom: 4px;
+                            "
+                        >
+                            Maps
+                        </h4>
+                        <p style="font-size: 14px; color: #64748b">
+                            Google Maps / Mapbox integration. Enterprise only
+                            includes full map view with priced pins. Starter/Pro
+                            show addresses only.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                Built for <strong>Playo</strong> &middot;
+                <strong>Bun + Fastify + PostgreSQL + Flutter</strong> &middot;
+                All plans include Android & iOS apps
+            </div>
+        </div>
+
+        <script>
+            const DATA = {
+                features: [
+                    // Onboarding
+                    { g: "Onboarding & Auth" },
+                    {
+                        f: "Welcome / Splash Screen",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Onboarding Slides (Count)",
+                        s: "1 slide",
+                        m: "2 slides",
+                        e: "3 slides",
+                    },
+                    {
+                        f: "Profile Setup (Name, Email, Sports)",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    {
+                        f: "Country Code Picker (+91)",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Auto-focus OTP Fields",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    { f: "Resend OTP Timer", s: "full", m: "full", e: "full" },
+                    {
+                        f: "Terms & Conditions Checkbox",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    // Navigation
+                    { g: "Navigation & Home" },
+                    {
+                        f: "Bottom Navigation Tabs",
+                        s: "3 tabs",
+                        m: "3 tabs",
+                        e: "4 tabs",
+                    },
+                    {
+                        f: "Location Selector (Manual)",
+                        s: "text input",
+                        m: "dropdown",
+                        e: "GPS + dropdown",
+                    },
+                    {
+                        f: "Quick Book Category Icons",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Promotional Carousel Banner",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    {
+                        f: "Grounds Near You (Horizontal List)",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Ground List (Vertical)",
+                        s: "full",
+                        m: "full",
+                        e: "full + Top Rated",
+                    },
+                    {
+                        f: "Notification Bell Icon",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    // Discovery
+                    { g: "Discovery & Search" },
+                    {
+                        f: "Search Bar",
+                        s: "basic text",
+                        m: "with history",
+                        e: "with history",
+                    },
+                    {
+                        f: "Recent Search History",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    { f: "Filter - Sport Type", s: "no", m: "full", e: "full" },
+                    {
+                        f: "Filter - Availability (Date)",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Filter - Star Rating",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Filter - Price Range Slider",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    { f: "Filter - Amenities", s: "no", m: "no", e: "full" },
+                    { f: "Map View with Pins", s: "no", m: "no", e: "full" },
+                    // Ground Detail
+                    { g: "Ground Detail & Booking" },
+                    {
+                        f: "Image Display",
+                        s: "single photo",
+                        m: "carousel",
+                        e: "carousel",
+                    },
+                    {
+                        f: "Amenities Icons",
+                        s: "no",
+                        m: "key icons",
+                        e: "full list",
+                    },
+                    { f: "Get Directions Link", s: "no", m: "full", e: "full" },
+                    {
+                        f: "Contact Number Display",
+                        s: "full",
+                        m: "no",
+                        e: "full (call button)",
+                    },
+                    {
+                        f: "Court Variant Tabs (7v7 / 5v5)",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    {
+                        f: "Horizontal Calendar Date Strip",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Time Slot Display",
+                        s: "M/A/E list",
+                        m: "grid, color-coded",
+                        e: "grid, dynamic pricing",
+                    },
+                    {
+                        f: "Slot Status Colors (Green/Grey)",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    // Booking Flow
+                    { g: "Booking & Payment" },
+                    {
+                        f: "Booking Review / Summary",
+                        s: "full",
+                        m: "with price breakdown",
+                        e: "with price breakdown",
+                    },
+                    {
+                        f: "Platform Fee & Tax Breakdown",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Promo Code / Coupon Field",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    {
+                        f: "UPI Payment",
+                        s: "Razorpay UPI",
+                        m: "GPay, PhonePe, Paytm",
+                        e: "UPI + Cards + Net Banking",
+                    },
+                    {
+                        f: "Razorpay SDK",
+                        s: "UPI only",
+                        m: "UPI only",
+                        e: "full integration",
+                    },
+                    {
+                        f: "Animated Success Screen",
+                        s: "text only",
+                        m: "checkmark animation",
+                        e: "checkmark + QR link",
+                    },
+                    { f: "QR Ticket Generation", s: "no", m: "no", e: "full" },
+                    // Bookings
+                    { g: "My Bookings" },
+                    {
+                        f: "Upcoming Bookings List",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Past Bookings History",
+                        s: "no",
+                        m: "tabbed view",
+                        e: "tabbed view",
+                    },
+                    {
+                        f: "Booking Detail View",
+                        s: "basic info",
+                        m: "full receipt",
+                        e: "QR + receipt",
+                    },
+                    { f: "Cancel Booking", s: "no", m: "no", e: "with policy" },
+                    { f: "Contact Venue (Call)", s: "no", m: "no", e: "full" },
+                    {
+                        f: "Review & Rating (Post-match)",
+                        s: "no",
+                        m: "no",
+                        e: "with image upload",
+                    },
+                    // Profile
+                    { g: "Profile & Settings" },
+                    {
+                        f: "Profile Screen",
+                        s: "name + phone",
+                        m: "name + matches",
+                        e: "avatar + matches",
+                    },
+                    {
+                        f: "Edit Profile",
+                        s: "no",
+                        m: "name + email",
+                        e: "photo + phone + email + sports",
+                    },
+                    { f: "Payment Methods Saved", s: "no", m: "no", e: "full" },
+                    {
+                        f: "Saved / Favourite Grounds",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    { f: "Help & Support", s: "no", m: "full", e: "full" },
+                    { f: "Privacy Policy Page", s: "no", m: "no", e: "full" },
+                    { f: "Logout Button", s: "full", m: "full", e: "full" },
+                    // Operator
+                    { g: "Operator Tools" },
+                    {
+                        f: "Owner Dashboard",
+                        s: "basic",
+                        m: "with calendar",
+                        e: "with analytics",
+                    },
+                    {
+                        f: "Ground & Slot Management",
+                        s: "basic",
+                        m: "full",
+                        e: "full + dynamic pricing",
+                    },
+                    {
+                        f: "Booking Calendar View",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Admin Web Panel (React/Next.js)",
+                        s: "revenue + users",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Vendor Verification Flow",
+                        s: "no",
+                        m: "full",
+                        e: "full",
+                    },
+                    { f: "Commission Engine", s: "no", m: "full", e: "full" },
+                    {
+                        f: "Platform Analytics",
+                        s: "no",
+                        m: "basic",
+                        e: "advanced + trends",
+                    },
+                    // Infrastructure
+                    { g: "Infrastructure & DevOps" },
+                    {
+                        f: "Docker Containerization",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    { f: "Cloud Deployment", s: "full", m: "full", e: "full" },
+                    {
+                        f: "S3 / MinIO File Storage",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    { f: "Redis Caching", s: "no", m: "no", e: "full" },
+                    {
+                        f: "Push Notifications (FCM)",
+                        s: "full",
+                        m: "full",
+                        e: "full",
+                    },
+                    {
+                        f: "Concurrency & Race Condition Audits",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                    {
+                        f: "Razorpay Webhook Recovery",
+                        s: "no",
+                        m: "no",
+                        e: "full",
+                    },
+                ],
+                timelines: {
+                    starter: [
+                        {
+                            week: "Week 1",
+                            title: "Backend Setup & Auth",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "PostgreSQL schema for users, grounds, bookings",
+                                "Bun + Fastify server with core REST routes",
+                                "OTP-based mobile auth via SMS Gateway",
+                            ],
+                        },
+                        {
+                            week: "Week 2",
+                            title: "Booking Engine & API",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Time-slot availability & double-booking prevention",
+                                "Create, view, and list booking endpoints",
+                            ],
+                        },
+                        {
+                            week: "Week 3",
+                            title: "Flutter Player App",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Splash screen, OTP login, home screen",
+                                "Ground list, detail view, slot selection",
+                                "Booking confirmation and My Bookings list",
+                            ],
+                        },
+                        {
+                            week: "Week 4",
+                            title: "Owner Tools & Launch",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Owner dashboard for ground management",
+                                "API wiring, cloud hosting, platform launch",
+                            ],
+                        },
+                    ],
+                    pro: [
+                        {
+                            week: "Week 1",
+                            title: "Architecture & Database",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "PostgreSQL 16 schema with Prisma ORM",
+                                "Bun + Fastify backend setup",
+                                "JWT auth + SMS Gateway OTP",
+                            ],
+                        },
+                        {
+                            week: "Week 2",
+                            title: "Booking Logic & Rules",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Conflict-free slot generation algorithm",
+                                "Multi-role permissions (Admin, Owner, Player)",
+                                "Platform commission logic",
+                            ],
+                        },
+                        {
+                            week: "Week 3",
+                            title: "Flutter Player App",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Onboarding slides, country code, OTP fields",
+                                "Location display, ground listing, search/filters",
+                                "Hourly grid layout with color-coded slots",
+                            ],
+                        },
+                        {
+                            week: "Week 4",
+                            title: "Owner + Admin Apps",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Owner dashboard with booking calendar",
+                                "React/Next.js admin control center",
+                                "Vendor verification & catalog approval",
+                            ],
+                        },
+                        {
+                            week: "Week 5",
+                            title: "Integration & Deployment",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Riverpod state management wired to APIs",
+                                "Razorpay UPI checkout integration",
+                                "Asset storage, containerization, go live",
+                            ],
+                        },
+                    ],
+                    enterprise: [
+                        {
+                            week: "Week 1",
+                            title: "Architecture & Database",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "PostgreSQL 16 schema with Prisma ORM",
+                                "Bun + Fastify high-performance backend",
+                                "JWT auth + SMS Gateway OTP",
+                            ],
+                        },
+                        {
+                            week: "Week 2",
+                            title: "Booking Logic & Rules",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Conflict-free slot generation algorithm",
+                                "Multi-role permissions (Admin, Owner, Player)",
+                                "Global platform commission logic",
+                            ],
+                        },
+                        {
+                            week: "Week 3",
+                            title: "Player App Core",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Onboarding, country code selector, OTP fields",
+                                "GPS auto-detect + interactive map with price pins",
+                                "Responsive hourly grid with color-coded slots",
+                            ],
+                        },
+                        {
+                            week: "Week 4",
+                            title: "Operator Apps",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Owner dashboard & booking calendar",
+                                "React/Next.js admin control center",
+                                "Code optimization & shared components",
+                            ],
+                        },
+                        {
+                            week: "Week 5",
+                            title: "State Wiring & Payments",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Riverpod state management to live APIs",
+                                "Full Razorpay SDK (UPI + Cards + Net Banking)",
+                                "Post-payment QR ticket generation",
+                            ],
+                        },
+                        {
+                            week: "Week 6",
+                            title: "Audits & DevOps",
+                            hours: "40 hrs | \u20b940,000",
+                            items: [
+                                "Concurrency & race condition stress tests",
+                                "Network fallback & Razorpay webhook recovery",
+                                "S3/MinIO storage, containerization, launch",
+                            ],
+                        },
+                    ],
+                },
+            };
+
+            function render() {
+                renderTable("all");
+                renderTimeline("starter");
+            }
+
+            function renderTable(filter) {
+                const tbody = document.getElementById("ftbody");
+                let html = "";
+                DATA.features.forEach((item) => {
+                    if (item.g) {
+                        const colspan = 4;
+                        html += `<tr class="feature-group"><td colspan="${colspan}">${item.g}</td></tr>`;
+                    } else {
+                        const vals = [item.s, item.m, item.e];
+                        const allSame = vals.every((v) => v === vals[0]);
+                        if (filter === "diff" && allSame) return;
+                        const fmt = (v) => {
+                            if (v === "full" || v === true || v === "yes")
+                                return '<span class="plus">&#10003;</span>';
+                            if (v === "no" || v === false)
+                                return '<span class="minus">&#10007;</span>';
+                            if (v && v !== "full" && v !== "no")
+                                return `<span class="partial">${v}</span>`;
+                            return "";
+                        };
+                        html += `<tr><td>${item.f}</td><td>${fmt(item.s)}</td><td>${fmt(item.m)}</td><td>${fmt(item.e)}</td></tr>`;
+                    }
+                });
+                tbody.innerHTML = html;
+            }
+
+            function renderTimeline(plan) {
+                const container = document.getElementById("timeline-container");
+                const data = DATA.timelines[plan];
+                let html = '<div class="timeline-grid">';
+                data.forEach((w) => {
+                    html += `<div class="timeline-card">
+      <div class="week">${w.week}</div>
+      <h4>${w.title}</h4>
+      <div class="hours">${w.hours}</div>
+      <ul>${w.items.map((i) => `<li>${i}</li>`).join("")}</ul>
+    </div>`;
+                });
+                html += "</div>";
+                const total = data.reduce((s, w) => s + parseInt(w.hours), 0);
+                html += `<p style="margin-top:28px;text-align:center;color:#64748b;font-size:14px;"><strong style="color:#0f172a;">Total:</strong> ${total} hours across ${data.length} weeks</p>`;
+                container.innerHTML = html;
+            }
+
+            // Tabs
+            document.querySelectorAll(".tab-btn").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document
+                        .querySelectorAll(".tab-btn")
+                        .forEach((b) => b.classList.remove("active"));
+                    document
+                        .querySelectorAll(".tab-content")
+                        .forEach((c) => c.classList.remove("active"));
+                    btn.classList.add("active");
+                    document
+                        .getElementById("tab-" + btn.dataset.tab)
+                        .classList.add("active");
+                });
+            });
+
+            // View toggle
+            document.querySelectorAll("[data-view]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document
+                        .querySelectorAll("[data-view]")
+                        .forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    renderTable(btn.dataset.view);
+                });
+            });
+
+            // Timeline toggle
+            document.querySelectorAll("[data-timeline]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document
+                        .querySelectorAll("[data-timeline]")
+                        .forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    renderTimeline(btn.dataset.timeline);
+                });
+            });
+
+            render();
+        </script>
+    </body>
+</html>
