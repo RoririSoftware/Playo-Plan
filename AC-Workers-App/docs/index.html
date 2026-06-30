@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="ocean">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -68,8 +68,61 @@
           #0e7d8f 100%
         );
         --font-ui: "Plus Jakarta Sans", system-ui, sans-serif;
-        --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", sans-serif;
-        --font-num: "Space Grotesk", "Bricolage Grotesque", sans-serif;
+        --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+        --font-num: "Plus Jakarta Sans", system-ui, sans-serif;
+      }
+      /* ===== Global themes — switch via the bar at the top ===== */
+      [data-theme="midnight"] {
+        --primary-50: #f0f1f4;
+        --primary-100: #dfe1e7;
+        --primary-500: #3a4252;
+        --primary-600: #1b2330;
+        --primary-700: #0c121c;
+        --primary-950: #05080d;
+        --accent-400: #9aa6bd;
+        --accent-500: #7d8aa3;
+        --grad-cool: linear-gradient(135deg, #2a3340 0%, #161d28 58%, #05080d 100%);
+        --grad-ink: linear-gradient(165deg, #05080d 0%, #1b2330 55%, #36404f 100%);
+        --focus-ring: 0 0 0 4px rgba(27, 35, 48, 0.25);
+      }
+      [data-theme="violet"] {
+        --primary-50: #f2ecfe;
+        --primary-100: #e4d8fd;
+        --primary-500: #8b5cf6;
+        --primary-600: #7c3aed;
+        --primary-700: #6025c4;
+        --primary-950: #1e0a44;
+        --accent-400: #c084fc;
+        --accent-500: #a855f7;
+        --grad-cool: linear-gradient(135deg, #7c3aed 0%, #9333ea 55%, #c026d3 100%);
+        --grad-ink: linear-gradient(165deg, #1e0a44 0%, #4c1d95 55%, #7c3aed 100%);
+        --focus-ring: 0 0 0 4px rgba(124, 58, 237, 0.24);
+      }
+      [data-theme="emerald"] {
+        --primary-50: #e6f8ef;
+        --primary-100: #c6efd7;
+        --primary-500: #1bb56e;
+        --primary-600: #0f9d57;
+        --primary-700: #0a7543;
+        --primary-950: #042b1f;
+        --accent-400: #5eead4;
+        --accent-500: #2dd4bf;
+        --grad-cool: linear-gradient(135deg, #0f9d57 0%, #0ea59a 55%, #14b8a6 100%);
+        --grad-ink: linear-gradient(165deg, #042b1f 0%, #0a5e3e 55%, #0d9488 100%);
+        --focus-ring: 0 0 0 4px rgba(15, 157, 87, 0.24);
+      }
+      [data-theme="sunset"] {
+        --primary-50: #fef0e7;
+        --primary-100: #fcdcc6;
+        --primary-500: #fb923c;
+        --primary-600: #ef7611;
+        --primary-700: #c25208;
+        --primary-950: #3d1602;
+        --accent-400: #fbbf24;
+        --accent-500: #f59e0b;
+        --grad-cool: linear-gradient(135deg, #ef7611 0%, #fb6f3c 55%, #f59e0b 100%);
+        --grad-ink: linear-gradient(165deg, #3d1602 0%, #9a3a08 55%, #ef7611 100%);
+        --focus-ring: 0 0 0 4px rgba(239, 118, 17, 0.24);
       }
       * {
         box-sizing: border-box;
@@ -1143,6 +1196,55 @@
         font-weight: 700;
         font-variant-numeric: tabular-nums;
       }
+      .theme-bar {
+        position: sticky;
+        top: 14px;
+        z-index: 60;
+        width: fit-content;
+        max-width: 92vw;
+        margin: 0 auto 32px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 9px 9px 9px 18px;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(14px) saturate(1.2);
+        -webkit-backdrop-filter: blur(14px) saturate(1.2);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 999px;
+        box-shadow: var(--shadow-md);
+      }
+      .theme-bar .lbl {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+      .theme-bar .swatches {
+        display: flex;
+        gap: 8px;
+      }
+      .swatch {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow:
+          0 0 0 1px var(--neutral-200),
+          0 2px 6px rgba(11, 27, 53, 0.12);
+        cursor: pointer;
+        padding: 0;
+        transition: transform 0.15s ease;
+      }
+      .swatch:hover {
+        transform: translateY(-2px) scale(1.06);
+      }
+      .swatch[aria-pressed="true"] {
+        box-shadow:
+          0 0 0 2px #fff,
+          0 0 0 4px var(--primary-600);
+      }
       @media (max-width: 480px) {
         .page {
           padding: 24px 16px 64px;
@@ -1150,11 +1252,54 @@
         .screen-grid {
           gap: 20px;
         }
+        .theme-bar .lbl {
+          display: none;
+        }
       }
     </style>
   </head>
   <body>
     <div class="page">
+      <div class="theme-bar" role="group" aria-label="Color theme">
+        <span class="lbl">Theme</span>
+        <div class="swatches">
+          <button
+            class="swatch"
+            data-theme="ocean"
+            title="Ocean"
+            aria-label="Ocean blue theme"
+            style="background: linear-gradient(135deg, #1f5fef, #14b8a6)"
+          ></button>
+          <button
+            class="swatch"
+            data-theme="midnight"
+            title="Midnight"
+            aria-label="Midnight black theme"
+            style="background: linear-gradient(135deg, #2a3340, #05080d)"
+          ></button>
+          <button
+            class="swatch"
+            data-theme="violet"
+            title="Violet"
+            aria-label="Violet theme"
+            style="background: linear-gradient(135deg, #7c3aed, #c026d3)"
+          ></button>
+          <button
+            class="swatch"
+            data-theme="emerald"
+            title="Emerald"
+            aria-label="Emerald theme"
+            style="background: linear-gradient(135deg, #0f9d57, #14b8a6)"
+          ></button>
+          <button
+            class="swatch"
+            data-theme="sunset"
+            title="Sunset"
+            aria-label="Sunset theme"
+            style="background: linear-gradient(135deg, #ef7611, #f59e0b)"
+          ></button>
+        </div>
+      </div>
       <div class="page-head">
         <span class="badge">Worker Mobile App · 15 screens</span>
         <h1>CoolCrew — Worker App Screens</h1>
@@ -3071,5 +3216,33 @@
         </div>
       </div>
     </div>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var swatches = document.querySelectorAll(".swatch");
+        function setActive(theme) {
+          root.setAttribute("data-theme", theme);
+          try {
+            localStorage.setItem("cc-theme", theme);
+          } catch (e) {}
+          swatches.forEach(function (s) {
+            s.setAttribute(
+              "aria-pressed",
+              s.dataset.theme === theme ? "true" : "false"
+            );
+          });
+        }
+        var saved;
+        try {
+          saved = localStorage.getItem("cc-theme");
+        } catch (e) {}
+        setActive(saved || root.getAttribute("data-theme") || "ocean");
+        swatches.forEach(function (b) {
+          b.addEventListener("click", function () {
+            setActive(b.dataset.theme);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
