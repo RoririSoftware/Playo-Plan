@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CoolCrew — Product Plan</title>
+    <style>
+      body {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 18px;
+        line-height: 1.6;
+        color: #222222;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 40px 20px;
+      }
+      .container {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 32px;
+        font-weight: bold;
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #111111;
+        border-bottom: 2px solid #222222;
+        padding-bottom: 15px;
+      }
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 40px;
+        margin-bottom: 15px;
+        color: #111111;
+        border-bottom: 1px solid #dddddd;
+        padding-bottom: 8px;
+      }
+      h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        color: #111111;
+      }
+      h4 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        color: #333333;
+      }
+      p {
+        margin-top: 0;
+        margin-bottom: 16px;
+      }
+      ul, ol {
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding-left: 25px;
+      }
+      li {
+        margin-bottom: 8px;
+      }
+      strong, b {
+        font-weight: bold;
+        color: #111111;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #dddddd;
+        margin: 40px 0;
+      }
+
+      footer {
+        margin-top: 60px;
+        padding-top: 20px;
+        border-top: 1px solid #dddddd;
+        font-size: 14px;
+        color: #666666;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CoolCrew — Product Plan</h1>
+      <p style="font-size: 20px; color: #555555; font-style: italic; margin-bottom: 30px;">
+        Features and modules for the field service workforce platform — explained in plain English.
+      </p>
+      <p style="margin-bottom: 30px;"><a href="index.html">View Design Screens →</a></p>
+
+      <h2>1. Overview</h2>
+      <p>
+        CoolCrew is a software solution designed to help AC repair and field service companies run their daily operations smoothly. The entire system is built as two simple frontends connected to a single secure database:
+      </p>
+      <ol>
+        <li><strong>A Mobile App for Workers</strong> in the field (designed for easy tap-and-go use on mobile phones).</li>
+        <li><strong>A Web Dashboard for Managers</strong> in the office (designed for desktop computers to manage scheduling and oversight).</li>
+      </ol>
+
+      <p>We guarantee three core benefits to your business:</p>
+      <ul>
+        <li>
+          <strong>Accurate Check-Ins:</strong> Every check-in and check-out is tied to a verified GPS location and time, along with an optional selfie photo, so you always know your team is where they need to be.
+        </li>
+        <li>
+          <strong>Full Tool Accountability:</strong> Any tools or materials that leave your office stay registered to the worker's name until they are officially returned and checked back in.
+        </li>
+        <li>
+          <strong>Never Lose Data:</strong> The mobile app works offline. If a worker has poor signal inside a building, the app saves everything and automatically syncs it once signal returns.
+        </li>
+      </ul>
+
+      <hr />
+
+      <h2>2. Worker Mobile App</h2>
+      <p>
+        This is the clean, simple app that your field technicians will use on their phones. It is designed with big, easy-to-tap buttons and high contrast so it is clearly readable outdoors under bright sunlight.
+      </p>
+
+      <h3>Signing In &amp; Security</h3>
+      <ul>
+        <li><strong>Password-Free Log In:</strong> Workers simply enter their phone number and receive a secure text message code to log in. They don't have to remember complicated passwords.</li>
+        <li><strong>Quick Daily Access:</strong> After the first login, they can open the app quickly using a simple 4-digit PIN.</li>
+      </ul>
+
+      <h3>The Home Screen (Today's Work)</h3>
+      <ul>
+        <li><strong>Big Check-In Button:</strong> A single large button to "Check In" at the start of the day and "Check Out" at the end of the day.</li>
+        <li><strong>Workday Clock:</strong> A live timer that shows them exactly how many hours they have worked today.</li>
+        <li><strong>Your Next Job:</strong> A prominent card showing their next assigned job with customer details, the address, and easy buttons to start GPS navigation or call the customer.</li>
+        <li><strong>Quick Numbers:</strong> Easy counters showing jobs completed today, hours worked, and tools currently checked out.</li>
+      </ul>
+
+      <h3>Timecards &amp; Attendance</h3>
+      <ul>
+        <li><strong>Verified Location:</strong> When workers check in or check out, the app logs their exact map location and takes an optional selfie to verify their identity.</li>
+        <li><strong>Security Checks:</strong> The app automatically checks if GPS services are turned off or if someone is trying to fake their location, alerting the manager on the dashboard.</li>
+        <li><strong>End-of-Day Reminders:</strong> When checking out, the app shows a summary of their day and warns them if they still have tools checked out or unfinished jobs.</li>
+      </ul>
+
+      <h3>Job Management (My Assigned Calls)</h3>
+      <ul>
+        <li><strong>Today's List and Map:</strong> Technicians can view all their scheduled jobs on a simple list or see them pinned on a map.</li>
+        <li><strong>Job Details:</strong> Tap on any job to see the customer's contact info, special access notes, and the brand, model, and age of the AC units on-site.</li>
+        <li><strong>Simple Progress Buttons:</strong> They tap "Start Driving" when they leave, "Arrived" when they reach the customer, and "Complete" when they finish.</li>
+        <li><strong>Service Checklist:</strong> A step-by-step list of tasks (e.g., "Clean filters", "Check gas pressure") that they must check off.</li>
+        <li><strong>Work Log &amp; Customer Signature:</strong> They can easily attach before-and-after photos, write notes, specify any parts used, and collect the customer's signature right on their screen.</li>
+      </ul>
+
+      <h3>Toolbag &amp; Inventory Accountability</h3>
+      <ul>
+        <li><strong>What You're Carrying:</strong> A live screen showing exactly what tools and parts are currently checked out in the worker's name.</li>
+        <li><strong>Checking Out Tools:</strong> At the office, workers use their phone to search or scan barcodes of the tools they are taking, select the quantity, and confirm checkout.</li>
+        <li><strong>Returning Tools:</strong> At the end of the day, they select which tools they are returning, write off consumed parts (like screws or copper pipes), or report lost/damaged tools with a reason.</li>
+        <li><strong>The Holding Rule:</strong> Tools remain marked as "pending return" on the worker's record until they are officially returned and checked back in.</li>
+      </ul>
+
+      <h3>My History &amp; Settings</h3>
+      <ul>
+        <li><strong>Attendance History:</strong> A personal calendar showing which days they worked, their check-in/out times, and map locations.</li>
+        <li><strong>Tool Ledger:</strong> A full history of all tools they have checked out and returned over time.</li>
+      </ul>
+
+      <hr />
+
+      <h2>3. Admin Office Dashboard</h2>
+      <p>
+        This is a secure website that managers and business owners use on their office computers to schedule jobs, track attendance, manage inventory, and run the daily business.
+      </p>
+
+      <h3>Daily Overview</h3>
+      <ul>
+        <li><strong>Daily Status:</strong> See numbers at a glance — who is checked in, how many jobs are finished, and what tools are currently out.</li>
+        <li><strong>Worker Locations Map:</strong> View the last-known location of workers on a map, captured only when they update a job status or check in/out (no real-time live tracking).</li>
+        <li><strong>Important Notifications:</strong> Instant alerts for things that need immediate attention, such as unassigned emergency jobs, late check-ins, or overdue tools.</li>
+      </ul>
+
+      <h3>Attendance &amp; Payroll Timesheets</h3>
+      <ul>
+        <li><strong>Daily Punch Log:</strong> A clean table showing each worker's clock-in time, clock-out time, total hours, and check-in photos.</li>
+        <li><strong>Verified Maps:</strong> Click any clock-in to see the exact map location and selfie to verify they were on-site.</li>
+        <li><strong>Payroll Reports:</strong> Easily download weekly or monthly timesheets for all workers as an Excel or PDF file with one click.</li>
+      </ul>
+
+      <h3>Worker Directory</h3>
+      <ul>
+        <li><strong>Employee Records:</strong> A searchable directory of all technicians, their contact details, roles, and branch assignments.</li>
+        <li><strong>Add New Employees:</strong> Onboard a new worker in seconds by entering their name and phone number. This automatically sends them a text invite to download the app.</li>
+        <li><strong>Simple Actions:</strong> Deactivate past employees instantly or reset a worker's secure login PIN if they forget it.</li>
+      </ul>
+
+      <h3>Scheduling Board</h3>
+      <ul>
+        <li><strong>Calendar Board:</strong> A visual calendar with columns for each worker to schedule and assign jobs.</li>
+        <li><strong>Create a Job Card:</strong> Enter client details, addresses, scheduled times, priority levels, task checklists, and required tools.</li>
+        <li><strong>Track Status:</strong> Watch the status change as the technician starts driving, arrives, and finishes the work.</li>
+        <li><strong>Quick Adjustments:</strong> Easily move a job to a different time or a different worker if plans change.</li>
+      </ul>
+
+      <h3>Clients &amp; AC Unit History</h3>
+      <ul>
+        <li><strong>Customer Book:</strong> A list of all customers, their site locations, and service contracts.</li>
+        <li><strong>AC Equipment Register:</strong> For every client, track all AC units on-site (brand, model, capacity, installation date, and warranty status).</li>
+        <li><strong>Complete Service History:</strong> See a clear historical timeline of all past service visits, including technician notes, photos, parts used, and signatures.</li>
+      </ul>
+
+      <h3>Inventory &amp; Tool Reconciliation</h3>
+      <ul>
+        <li><strong>Stock Levels:</strong> Keep a catalog of tools, spare parts, and consumables (like gas or filters), showing how many are in the office, how many are checked out, and get alerts for low stock.</li>
+        <li><strong>Who-Holds-What:</strong> See exactly which worker has which tools, how long they've had them, and flag any items that are overdue.</li>
+        <li><strong>Reconciliation Screen:</strong> Confirm returned tools, write off parts used at jobs, or log damaged or lost tools with clean reasons.</li>
+      </ul>
+
+      <h3>Business Reports</h3>
+      <ul>
+        <li><strong>Attendance Summary:</strong> View total hours worked and on-time stats per worker or branch.</li>
+        <li><strong>Productivity Reports:</strong> See how many jobs each technician completed and their average job duration.</li>
+        <li><strong>Tool Costs &amp; Loss:</strong> Track which tools are frequently lost, damaged, or written off to control shrinkage and costs.</li>
+      </ul>
+
+      <h3>System Settings</h3>
+      <ul>
+        <li><strong>Security Permissions:</strong> Set who can edit schedules, view customer info, or delete data (Field Workers, Managers, and Super Administrators).</li>
+        <li><strong>Branch Offices:</strong> Easily manage multiple office locations or regions.</li>
+        <li><strong>Business Rules:</strong> Configure standard working hours, check-in radius restrictions, and default job templates.</li>
+        <li><strong>Audit Trail:</strong> A secure log of important manager actions (like writing off lost inventory or deleting records) to keep operations transparent and honest.</li>
+      </ul>
+
+      <hr />
+
+      <h2>4. Marketing Role (Leads)</h2>
+      <p>
+        A new role for marketing people to manage client leads.
+      </p>
+
+      <h3>Mobile App (Marketing Login)</h3>
+      <ul>
+        <li><strong>Leads List:</strong> View a simple list of client leads with names and phone numbers.</li>
+        <li><strong>Add Lead:</strong> Add new client leads by entering their name and phone number.</li>
+        <li><strong>Lead Details:</strong> Tap a lead to view details and call them directly from the app.</li>
+      </ul>
+
+      <h3>Admin Dashboard (Manager View)</h3>
+      <ul>
+        <li><strong>View Leads:</strong> Managers can see all client leads added by the marketing team.</li>
+      </ul>
+
+      <hr />
+
+      <h2>5. Key Journeys (How It Works)</h2>
+
+      <h4>A. Daily Worker Flow</h4>
+      <p>
+        The technician opens the app in the morning → Checks in (the app records their GPS and optional selfie) → Views today's job list → Selects the first job and taps for navigation → Arrives at the customer's site and marks "Arrived" → Completes the checklist, logs any parts used, takes photos, and gets the client's signature → Marks the job "Complete" → Repeats this for the next jobs → Checks out at the end of the day (the app warns them if they still have tools).
+      </p>
+
+      <h4>B. Tool Accountability Flow</h4>
+      <p>
+        At the office in the morning, the worker checks out required tools using the app → The tools are marked as "pending return" under their name on the dashboard → After completing their jobs, they return to the office and log the returned tools on their app → The manager confirms the return on the dashboard → The tools go back into stock, and the worker's pending count goes to zero.
+      </p>
+
+      <h4>C. Scheduling Flow</h4>
+      <p>
+        An office manager logs into the dashboard → Sees which workers have open slots → Creates new jobs and drags them onto the workers' schedules → The workers receive instant notifications on their phones with the customer's details and address.
+      </p>
+
+      <h4>D. Onboarding Flow</h4>
+      <p>
+        The manager adds a new employee to the dashboard → The system sends a welcome text to the worker's phone → The worker downloads the app, signs in with their phone number, sets a secure 4-digit PIN, and is immediately ready to receive jobs.
+      </p>
+
+      <hr />
+
+      <h2>6. Delivery Phases</h2>
+      <p>
+        We build and deliver the system in simple, clear phases. At the end of every phase, we will demonstrate a working part of your product:
+      </p>
+
+      <ul>
+        <li>
+          <strong>Phase 1: Log-In &amp; Setup:</strong> Setting up the secure database, worker roles, and secure phone-based log-in.
+          <br /><span style="color: #666666; font-size: 15px;">*You can log in as a worker on a phone and as a manager on a computer.*</span>
+        </li>
+        <li>
+          <strong>Phase 2: Attendance Tracker:</strong> Building the worker's clock-in screen with map verification and selfie, and the manager's attendance dashboard.
+          <br /><span style="color: #666666; font-size: 15px;">*Workers can clock in from the field; managers can see exactly when and where they did it.*</span>
+        </li>
+        <li>
+          <strong>Phase 3: Job Scheduling:</strong> Building the manager's visual scheduling board and the worker's job list, task checklist, and work log (photos and signature).
+          <br /><span style="color: #666666; font-size: 15px;">*Managers can assign jobs; workers can run through them on their phones and complete them.*</span>
+        </li>
+        <li>
+          <strong>Phase 4: Tool Accountability:</strong> Building the inventory database, the worker's checkout and return screens, and the manager's approval page.
+          <br /><span style="color: #666666; font-size: 15px;">*You can track exactly who has which tools and ensure everything is returned at the end of the day.*</span>
+        </li>
+        <li>
+          <strong>Phase 5: Reports &amp; Management:</strong> Building timesheet exports, PDF reports, and general business settings.
+          <br /><span style="color: #666666; font-size: 15px;">*You can download attendance timesheets, track tool costs, and manage permissions.*</span>
+        </li>
+        <li>
+          <strong>Phase 6: Final Polish &amp; Launch:</strong> Testing offline capabilities, securing all data, resolving bugs, and releasing the app to the app stores.
+          <br /><span style="color: #666666; font-size: 15px;">*The system is live and ready for your team.*</span>
+        </li>
+      </ul>
+
+      <hr />
+
+      <h2>7. Project Assumptions &amp; Scope Boundaries</h2>
+      <p>
+        To ensure a fast and simple delivery, we have designed the project scope based on the following standard business rules. If you need any of these changed, please let us know:
+      </p>
+      <ol>
+        <li>
+          <strong>Single Office Operations:</strong> The system is designed to run for a single main office (no multi-branch office selector in current scope).
+        </li>
+        <li>
+          <strong>Optional Selfies:</strong> Check-in selfie photos are optional for technicians when clocking in or out.
+        </li>
+        <li>
+          <strong>Major Tools &amp; Spares Only:</strong> Inventory tracking covers larger tools and main spare parts only (we will not track minor items like individual screws, bolts, or tape).
+        </li>
+        <li>
+          <strong>Technician Self-Checkout:</strong> Technicians use the mobile app to check tools out themselves when leaving the office.
+        </li>
+        <li>
+          <strong>No Customer Notifications:</strong> Customer-facing text messages (like "technician on the way") are not included in the current scope.
+        </li>
+        <li>
+          <strong>Simple Timesheet Exports:</strong> The system does not calculate complex payroll or overtime automatically; it exports standard timesheets to Excel for easy payroll processing.
+        </li>
+        <li>
+          <strong>Android Mobile App:</strong> The worker mobile app will be developed for Android mobile phones.
+        </li>
+      </ol>
+
+      <footer>
+        CoolCrew · Product Plan v1.0<br />
+        Field-service attendance, job management &amp; tool accountability
+      </footer>
+    </div>
+  </body>
+</html>
